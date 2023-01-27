@@ -1,0 +1,25 @@
+* Do Deep Neural Networks Capture Compositionality in Arithmetic Reasoning?
+** Work in Progress..
+Will be available by the EACL 2023 meeting.
+
+** Setup
+*** Dockeer image preparation
+1. Setup wandb
+Please make [[https://wandb.ai/site][wandb]] account and make .wandb_api_key.txt file.
+#+BEGIN_SRC sh
+cd ./docker_setting
+echo $YOUR_WAND_API_KEY > .wandb_api_key.txt
+#+END_SRC
+
+2. Build docker image
+#+BEGIN_SRC sh
+cd ./docker_setting
+zsh build.sh
+#+END_SRC
+
+*** Enter docker container
+#+BEGIN_SRC sh
+cd ./experiments/dev
+zsh env_setup.sh
+zsh ./tools/interactive.sh
+#+END_SRC
