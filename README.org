@@ -1,6 +1,6 @@
 * Do Deep Neural Networks Capture Compositionality in Arithmetic Reasoning?
 ** Work in Progress..
-Will be available by the EACL 2023 meeting.
+You will be available by the EACL 2023 meeting.
 
 ** Setup
 *** Dockeer image preparation
