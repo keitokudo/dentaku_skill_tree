@@ -1,8 +1,17 @@
 * Do Deep Neural Networks Capture Compositionality in Arithmetic Reasoning?
-** Work in Progress..
-You will be available by the EACL 2023 meeting.
+** Overview
+This repository contains source files we used in the following paper.
+- [[https://arxiv.org/abs/2302.07866][Do Deep Neural Networks Capture Compositionality in Arithmetic Reasoning?]]
+ - Keito Kudo, Yoichi Aoki, Tatsuki Kuribayashi, Ana Brassard, Masashi Yoshikawa, Keisuke Sakaguchi, Kentaro Inui.
+ - accepted by EACL 2023
 
 ** Setup
+This repository use [[https://www.docker.com/][Docker]].
+*** Project Configuration
+Open .project_config.sh and define **WORK_DIR_PREFIX**.
+The directory specified to **WORK_DIR_PREFIX** is where the trained models, generated datasets, training logs, etc. will be stored.
+# .project_config.shを開いて，WORK_DIR_PREFIXを定義してください．ここで指定されたディレクトリに，学習されたモデルや生成したデータセット，学習ログ等が保存されます．
+
 *** Dockeer image preparation
 1. Setup wandb
 Please make [[https://wandb.ai/site][wandb]] account and make .wandb_api_key.txt file.
@@ -19,7 +28,76 @@ zsh build.sh
 
 *** Enter docker container
 #+BEGIN_SRC sh
-cd ./experiments/dev
+cd ./experiments/pretrain/base/pretrain_base_2,3to5
 zsh env_setup.sh
 zsh ./tools/interactive.sh
 #+END_SRC
+
+# あなたの再現したい実験のディレクトリ
+
+** Directory Structure
+The **./experiment** directory contains configuration files to reproduce the experiments corresponding to each experimental setup in the paper. The correspondence between each directory and the experimental settings in the paper is as follows. 
+# experimentsディレクトリの中には，論文中の各実験設定に対応した実験を再現するための設定ファイル等が含まれています．それぞれのディレクトリと論文中の実験設定の対応関係は以下の通りです．
+
+- Table 1
+ - ./experiment/pretrain
+ - ./experiment/fine_tunings 
+
+- Table 4
+ - ./experiment/pretrain_bart
+ - ./experiment/fine_tunings_bart
+
+- Table 5
+ - ./experiment/pretrain_from_scratch
+
+- Table 6
+ - ./experiment/pretrain_str
+ - ./experiment/fine_tunings_str
+
+- Table 7
+ - ./experiment/pretrain_with_scratchpad
+ - ./experiment/fine_tunings_with_scratchpad
+
+
+Each directory is divided into three directories, base, large, and 3b. for each model size. Within those directories, there are directories for each task. Each task directory is named according to the following rules.
+#+BEGIN_SRC text
+{experimental setup}_{model size}_{train domain tasks}to{test domain tasks}(_subst)
+#+END_SRC
+The suffix **_subst** indicates that the directory is about experiments related to substitutivity. (corresponds to **+subst** in the table in our paper.)
+
+# 実験設定
+# 接尾辞の_substはsubstitutivityに関する実験に関するディレクトリであることを表しています． (表中の**+subst**に該当)
+# それぞれのディレクトリにはモデルサイズごとにbase, large, 3bのディレクトリに分かれており，さらにその中でタスクごとにディレクトリが存在しています．
+# 各タスクのディレクトリは以下の規則で命名されています
+# fine_tuning_base_2,3to5_subst
+# {}_{model_size}_{train domain tasks}to{test domain tasks}
+
+
+
+** Training and Evaluation
+*** (Pre-)Training
+After enter the docker container, execute the following commands to generate a dataset, train a model, and evaluate it.
+# 下記のコマンドを実行することで，データセットの生成・モデルの学習・評価が実行されます
+#+BEGIN_SRC sh
+GPU_ID=0
+cd ./experiments/pretrain/base/pretrain_base_2,3to5
+zsh ./scripts/start_pretrain.sh ./configs/pretrain_config.jsonnet $GPU_ID
+#+END_SRC
+The results and logs of the training can be found on wandb.
+# 実験結果はwandbで確認できます
+
+
+*** Further Training to calculate WA (fine-tuning) and zero-shot evaluation
+After (Pre-)Training, move to the corresponding fine-tuning directory and execute the following commands. Executing these commands will generate the dataset, train the model, and evaluate it.
+# (Pre-)Trainingの後に，対応するfine-tuningのディレクトリに移動し，下記のコマンドを実行してください．このコマンドを実行することでデータセットの生成・モデルの学習・評価が実行されます．
+#+BEGIN_SRC sh
+GPU_ID=0
+cd ./experiments/fine_tunings/base/fine_tuning_base_2,3to5
+zsh ./scripts/start_fine_tune.sh ./configs/fine_tune_config.jsonnet $GPU_ID
+#+END_SRC
+The results of the experiment can be found on wandb.
+
+
+** Notice
+This software includes the work that is distributed in the [[https://www.apache.org/licenses/LICENSE-2.0][Apache License 2.0]].
+

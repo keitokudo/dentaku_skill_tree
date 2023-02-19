@@ -1,0 +1,10 @@
+logzero==1.7.0
+more-itertools==8.13.0
+pytorch-lightning==1.6.5
+wandb==0.12.21
+https://s3-us-west-2.amazonaws.com/ray-wheels/latest/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl
+higher==0.2.1
+optuna==2.10.1
+sentencepiece==0.1.96
+jsonnet
+

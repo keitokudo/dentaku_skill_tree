@@ -1,0 +1,26 @@
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+
+# Ignore internal tools
+experiments/tools
+experiments/*/base/tools
+experiments/*/large/tools
+experiments/*/3b/tools
+
+# wandb api key
+.wandb_api_key.txt
+.hugging_face_token.txt
+
+note.org
