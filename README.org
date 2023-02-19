@@ -8,8 +8,8 @@ This repository contains source files we used in the following paper.
 ** Setup
 This repository use [[https://www.docker.com/][Docker]].
 *** Project Configuration
-Open .project_config.sh and define **WORK_DIR_PREFIX**.
-The directory specified to **WORK_DIR_PREFIX** is where the trained models, generated datasets, training logs, etc. will be stored.
+Open .project_config.sh and define "WORK_DIR_PREFIX".
+The directory specified to "WORK_DIR_PREFIX" is where the trained models, generated datasets, training logs, etc. will be stored.
 # .project_config.shを開いて，WORK_DIR_PREFIXを定義してください．ここで指定されたディレクトリに，学習されたモデルや生成したデータセット，学習ログ等が保存されます．
 
 *** Dockeer image preparation
@@ -33,10 +33,8 @@ zsh env_setup.sh
 zsh ./tools/interactive.sh
 #+END_SRC
 
-# あなたの再現したい実験のディレクトリ
-
 ** Directory Structure
-The **./experiment** directory contains configuration files to reproduce the experiments corresponding to each experimental setup in the paper. The correspondence between each directory and the experimental settings in the paper is as follows. 
+The "./experiment" directory contains configuration files to reproduce the experiments corresponding to each experimental setup in the paper. The correspondence between each directory and the experimental settings in the paper is as follows. 
 # experimentsディレクトリの中には，論文中の各実験設定に対応した実験を再現するための設定ファイル等が含まれています．それぞれのディレクトリと論文中の実験設定の対応関係は以下の通りです．
 
 - Table 1
@@ -63,7 +61,7 @@ Each directory is divided into three directories, base, large, and 3b. for each 
 #+BEGIN_SRC text
 {experimental setup}_{model size}_{train domain tasks}to{test domain tasks}(_subst)
 #+END_SRC
-The suffix **_subst** indicates that the directory is about experiments related to substitutivity. (corresponds to **+subst** in the table in our paper.)
+The suffix "_subst" indicates that the directory is about experiments related to substitutivity. (corresponds to "+subst" in the table in our paper.)
 
 # 実験設定
 # 接尾辞の_substはsubstitutivityに関する実験に関するディレクトリであることを表しています． (表中の**+subst**に該当)
